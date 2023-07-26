@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scrabble Score Keeper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        input[type=text], input[type=number] {
+            padding: 8px;
+            margin: 4px;
+            border-radius: 4px;
+            border: none;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            margin: 4px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3e8e41;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        tr:hover {background-color:#f5f5f5;}
+    </style>
+</head>
+<body>
+    <h1>Compteur Scrabble</h1>
+    <p>Ajouter le nom d'un jouer:</p>
+    <input type="text" id="playerName">
+    <button onclick="addPlayer()">Ajouter le jouer</button>
+    <br><br>
+    <table id="scoreTable">
+        <tr>
+            <th>Nom</th>
+            <th>Score</th>
+        </tr>
+    </table>
+    <br><br>
+    <button onclick="startGame()">Commencer</button>
+    <br><br>
+    <div id="gameDiv" style="display:none;">
+        <p>Entrer le la note de <span id="currentPlayerName"></span>:</p>
+        <input type="number" id="playerScore">
+        <button onclick="addScore()">Ajouter le score</button>
+        <br><br>
+        <button onclick="nextPlayer()">jouer suivant</button>
+    </div>
+
+    <script type="text/javascript">
+        var players = [];
+        var currentPlayer = 0;
+
+        function addPlayer() {
+            var playerName = document.getElementById("playerName").value;
+            players.push({ name: playerName, score: 0 });
+            document.getElementById("playerName").value = "";
+            updateTable();
+        }
+
+        function updateTable() {
+            var table = document.getElementById("scoreTable");
+            table.innerHTML = "<tr><th>Name</th><th>Score</th></tr>";
+            for (var i = 0; i < players.length; i++) {
+                var row = table.insertRow(i + 1);
+                var nameCell = row.insertCell(0);
+                var scoreCell = row.insertCell(1);
+                nameCell.innerHTML = players[i].name;
+                scoreCell.innerHTML = players[i].score;
+            }
+        }
+
+        function startGame() {
+            if (players.length == 0) {
+                alert("Please enter at least one player name.");
+                return;
+            }
+            document.getElementById("gameDiv").style.display = "block";
+            document.getElementById("currentPlayerName").innerHTML = players[currentPlayer].name;
+        }
+
+        function addScore() {
+            var score = parseInt(document.getElementById("playerScore").value);
+            if (isNaN(score)) {
+                alert("Please enter a valid number.");
+                return;
+            }
+            players[currentPlayer].score += score;
+            document.getElementById("playerScore").value = "";
+            updateTable();
+        }
+
+        function nextPlayer() {
+            currentPlayer++;
+            if (currentPlayer >= players.length) {
+                currentPlayer = 0;
+            }
+            document.getElementById("playerScore").value = "";
+            document.getElementById("currentPlayerName").innerHTML = players[currentPlayer].name;
+        }
+    </script>
+
+</body>
+</html>
+

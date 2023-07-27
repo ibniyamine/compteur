@@ -139,6 +139,18 @@
             document.getElementById("currentPlayerName").innerHTML = players[currentPlayer].name;
         }
 
+         function handleAddPlayer(event) {
+            if (event.key === "Enter") {
+                addPlayer();
+            }
+        }
+
+        function handleAddScore(event) {
+            if (event.key === "Enter") {
+                addScore();
+            }
+        }
+
         
 
        

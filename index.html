@@ -55,8 +55,6 @@
                 padding: 6px;
                 font-size: 16px;
             }
-        }
-         @media only screen and (max-width: 600px) {
             table {
                 font-size: 16px;
             }
@@ -66,7 +64,7 @@
 <body>
     <h1>Compteur Scrabble</h1>
     <p>Ajouter le nom d'un joueur:</p>
-    <input type="text" id="playerName">
+    <input type="text" id="playerName" onkeydown="handleAddPlayer(event)">
     <button onclick="addPlayer()">Ajouter le joueur</button>
     <br><br>
     <table id="scoreTable">
@@ -80,11 +78,12 @@
     <br><br>
     <div id="gameDiv" style="display:none;">
         <p>Entrer le score de <span id="currentPlayerName"></span>:</p>
-        <input type="number" id="playerScore">
+        <input type="number" id="playerScore" onkeydown="handleAddScore(event)">
         <button onclick="addScore()">Ajouter le score</button>
         <br><br>
         <button onclick="nextPlayer()">Joueur suivant</button>
     </div>
+
     <h2>Tableau des scores</h2>
     <table id="scoreHistoryTable">
         <tr>
@@ -115,19 +114,6 @@
                 scoreCell.innerHTML = players[i].score;
             }
         }
-         // Gestion de l'événement lorsqu'on appuie sur "Entrée" dans le champ "playerName"
-        function handleAddPlayer(event) {
-            if (event.key === "Enter") {
-                addPlayer();
-            }
-        }
-
-        // Gestion de l'événement lorsqu'on appuie sur "Entrée" dans le champ "playerScore"
-        function handleAddScore(event) {
-            if (event.key === "Enter") {
-                addScore();
-            }
-        }
 
         function startGame() {
             if (players.length == 0) {
@@ -147,6 +133,7 @@
             players[currentPlayer].score += score;
             document.getElementById("playerScore").value = "";
             updateTable();
+            updateScoreHistoryTable();
         }
 
         function nextPlayer() {
@@ -156,6 +143,18 @@
             }
             document.getElementById("playerScore").value = "";
             document.getElementById("currentPlayerName").innerHTML = players[currentPlayer].name;
+        }
+
+        function handleAddPlayer(event) {
+            if (event.key === "Enter") {
+                addPlayer();
+            }
+        }
+
+        function handleAddScore(event) {
+            if (event.key === "Enter") {
+                addScore();
+            }
         }
 
         function updateScoreHistoryTable() {
@@ -170,6 +169,6 @@
             }
         }
     </script>
-
 </body>
 </html>
+

@@ -84,13 +84,7 @@
         <button onclick="nextPlayer()">Joueur suivant</button>
     </div>
 
-    <h2>Tableau des scores</h2>
-    <table id="scoreHistoryTable">
-        <tr>
-            <th>Nom</th>
-            <th>Scores</th>
-        </tr>
-    </table>
+    
 
     <script type="text/javascript">
         var players = [];
@@ -145,29 +139,9 @@
             document.getElementById("currentPlayerName").innerHTML = players[currentPlayer].name;
         }
 
-        function handleAddPlayer(event) {
-            if (event.key === "Enter") {
-                addPlayer();
-            }
-        }
+        
 
-        function handleAddScore(event) {
-            if (event.key === "Enter") {
-                addScore();
-            }
-        }
-
-        function updateScoreHistoryTable() {
-            var scoreHistoryTable = document.getElementById("scoreHistoryTable");
-            scoreHistoryTable.innerHTML = "<tr><th>Nom</th><th>Scores</th></tr>";
-            for (var i = 0; i < players.length; i++) {
-                var row = scoreHistoryTable.insertRow(i + 1);
-                var nameCell = row.insertCell(0);
-                var scoreCell = row.insertCell(1);
-                nameCell.innerHTML = players[i].name;
-                scoreCell.innerHTML = players[i].score;
-            }
-        }
+       
     </script>
 </body>
 </html>

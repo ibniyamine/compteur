@@ -2,20 +2,25 @@
 <html>
 <head>
     <title>Scrabble Score Keeper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
         }
         h1 {
             text-align: center;
             color: #333;
+            margin-top: 20px;
         }
         input[type=text], input[type=number] {
             padding: 8px;
             margin: 4px;
             border-radius: 4px;
             border: none;
+            width: 100%;
         }
         button {
             background-color: #4CAF50;
@@ -25,6 +30,7 @@
             border-radius: 4px;
             border: none;
             cursor: pointer;
+            width: 100%;
         }
         button:hover {
             background-color: #3e8e41;
@@ -39,13 +45,24 @@
             border-bottom: 1px solid #ddd;
         }
         tr:hover {background-color:#f5f5f5;}
+
+        /* Responsive styles for mobile devices */
+        @media only screen and (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+            }
+            input[type=text], input[type=number], button {
+                padding: 6px;
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
     <h1>Compteur Scrabble</h1>
-    <p>Ajouter le nom d'un jouer:</p>
+    <p>Ajouter le nom d'un joueur:</p>
     <input type="text" id="playerName">
-    <button onclick="addPlayer()">Ajouter le jouer</button>
+    <button onclick="addPlayer()">Ajouter le joueur</button>
     <br><br>
     <table id="scoreTable">
         <tr>
@@ -57,11 +74,11 @@
     <button onclick="startGame()">Commencer</button>
     <br><br>
     <div id="gameDiv" style="display:none;">
-        <p>Entrer le la note de <span id="currentPlayerName"></span>:</p>
+        <p>Entrer le score de <span id="currentPlayerName"></span>:</p>
         <input type="number" id="playerScore">
         <button onclick="addScore()">Ajouter le score</button>
         <br><br>
-        <button onclick="nextPlayer()">jouer suivant</button>
+        <button onclick="nextPlayer()">Joueur suivant</button>
     </div>
 
     <script type="text/javascript">
@@ -77,7 +94,7 @@
 
         function updateTable() {
             var table = document.getElementById("scoreTable");
-            table.innerHTML = "<tr><th>Name</th><th>Score</th></tr>";
+            table.innerHTML = "<tr><th>Nom</th><th>Score</th></tr>";
             for (var i = 0; i < players.length; i++) {
                 var row = table.insertRow(i + 1);
                 var nameCell = row.insertCell(0);
@@ -89,7 +106,7 @@
 
         function startGame() {
             if (players.length == 0) {
-                alert("Please enter at least one player name.");
+                alert("Veuillez entrer au moins un nom de joueur.");
                 return;
             }
             document.getElementById("gameDiv").style.display = "block";
@@ -99,7 +116,7 @@
         function addScore() {
             var score = parseInt(document.getElementById("playerScore").value);
             if (isNaN(score)) {
-                alert("Please enter a valid number.");
+                alert("Veuillez entrer un nombre valide.");
                 return;
             }
             players[currentPlayer].score += score;
@@ -119,4 +136,3 @@
 
 </body>
 </html>
-
